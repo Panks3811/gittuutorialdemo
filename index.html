@@ -8,27 +8,27 @@
             <label>Email</label>      
             <input type="email" name="emailId"/>
             
-            <label>Password</label>            
-            <input type="password" name="password"/>
+            <label>Phone Number</label>            
+            <input type="phonenumber" name="phonenumber"/>
             
             <button> Submit </button>
         </form>
-
        <ul id="listOfitems"></ul> 
     <script>
+
         function saveToLocalStorage(event) {
             event.preventDefault();
             const name=event.target.username.value;
             const email =event.target.emailId.value;
-            const password=event.target.password.value;
+            const phonenumber=event.target.phonenumber.value;
             localStorage.setItem('name' , name);
             localStorage.setItem('emailId', email);
-            localStorage.setItem('password', password);
+            localStorage.setItem('phonenumber', phonenumber);
     
             const obj = {
                 name : name,
                 email : email,
-                password: password
+                phonenumber: phonenumber
             }
             localStorage.setItem(obj.email,JSON.stringify(obj));
             showUserOnScreen(obj);
@@ -37,21 +37,37 @@
 
           const parentElem = document.getElementById('listOfitems');
           const childElem = document.createElement('li');
-          childElem.textContent= obj.name + '-' + obj.email + '-' + obj.pass;
+          childElem.textContent= obj.name + '-' + obj.email + '-' + obj.phonenumber;
           
-        
-        const deleteButton = document.createElement('input')
-        deleteButton.type = 'button'
-        deleteButton.value = 'Delete'
-        deleteButton.onclick =  () => {
+          const deleteButton = document.createElement('input')
+          deleteButton.type = 'button'
+          deleteButton.value = 'Delete'
+          deleteButton.onclick =  () => {
 
           localStorage.removeItem(obj.email)
           parentElem.removeChild(childElem)
-        }
-        childElem.appendChild(deleteButton)
-        parentElem.appendChild(childElem)
 
+          }
+          const editButton = document.createElement('input')
+          editButton.type = 'button'
+          editButton.value = 'Edit'
+          editButton.onclick =  () => {
+
+          localStorage.removeItem(obj.email)
+          parentElem.removeChild(childElem)
+          document.getElementById('usernameInputTag').value = obj.name
+          document.getElementById('emailInputTag').value = obj.email
+          document.getElementById('phoneNumberInputTag').value = obj.phonenumber
+
+          }
+          
+           childElem.appendChild(deleteButton)
+           childElem.appendChild(editButton)
+           parentElem.appendChild(childElem)
         }
+       
+      
+
     </script>
   </body>
 </html>
